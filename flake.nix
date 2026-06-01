@@ -17,18 +17,22 @@
           devShells.default = with pkgs; mkShell {
             buildInputs = [
               uv
+              poetry
               pkg-config
               openssl
               sqlite
               zlib
               readline
               xz
-              libffi
+              libffi.dev
               expat
               stdenv.cc.cc.lib
               bzip2
               libxml2
               util-linux
+            ];
+            LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [
+              pkgs.libffi
             ];
             shellHook = ''
             exec zsh
